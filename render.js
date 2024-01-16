@@ -1,3 +1,5 @@
+var philoCount;
+
 function generatePhiloElements() {
     // Clear existing elements
     var mainImg = document.querySelector(".mainImg");
@@ -5,7 +7,7 @@ function generatePhiloElements() {
 
     // Input (num of philo)
     var philoCountInput = document.getElementById("philoCount");
-    var philoCount = parseInt(philoCountInput.value, 10);
+    philoCount = parseInt(philoCountInput.value, 10);
 
     // Validate the input
     if (isNaN(philoCount) || philoCount < 1) {
@@ -57,4 +59,15 @@ function generatePhiloElements() {
             mainImg.appendChild(fork);
         }
     }
+
+    // bring all philo tags
+    var philos = document.querySelectorAll(".philo");
+    var idx = 0;
+
+    // set number of philos
+    philos.forEach(philo => {
+        if (idx < philoCount)
+            philo.innerHTML = idx + 1;
+        idx++;
+    });
 }
