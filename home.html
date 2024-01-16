@@ -13,16 +13,26 @@
 
     <p>***maximum 16 philosophers recommended***</p>
 
-    <label for="philoCount">Enter the number of Philo elements:</label>
-    <input type="number" id="philoCount" min="1" value="6">
-    <button onclick="generatePhiloElements()">Generate Philo Elements</button>
+    <div>
+        <label for="philoCount">Enter the number of Philo elements:</label>
+        <input type="number" id="philoCount" min="1" value="6">
+        <button id="generate" onclick="generatePhiloElements()">Generate Philo Elements</button>
+    </div>
+    <br>
+    <br>
+    <div>   
+        <textarea id="philoSimul" placeholder="timestamp_in_ms X status"></textarea>
+        <br>
+        <button id="start" onclick="simulationStart()">START</button>
+    </div>
 
     <div class="mainImg">
         <span class="table"></span>
         <!-- Philo elements will be dynamically added here -->
     </div>
 
-    <script src="script.js"></script>
+    <script src="render.js"></script>
+    <script src="simulation.js"></script>
 </body>
 
 </html>

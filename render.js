@@ -1,9 +1,9 @@
 function generatePhiloElements() {
-    // Clear existing philo elements
+    // Clear existing elements
     var mainImg = document.querySelector(".mainImg");
     mainImg.innerHTML = '<span class="table"></span>';
 
-    // Get the user input
+    // Input (num of philo)
     var philoCountInput = document.getElementById("philoCount");
     var philoCount = parseInt(philoCountInput.value, 10);
 
@@ -43,7 +43,7 @@ function generatePhiloElements() {
             var philo = document.createElement("span");
             philo.className = "philo";
             philo.style.left = objectX + tableRect.left + tableWidth / 2 - 11 + "px";
-            philo.style.top = objectY + tableRect.top - 40 + "px";
+            philo.style.top = objectY + tableRect.top - 210 + "px";
     
             // Append the new philo element to the mainImg container
             mainImg.appendChild(philo);
@@ -52,7 +52,7 @@ function generatePhiloElements() {
             var fork = document.createElement("span");
             fork.className = "fork";
             fork.style.left = objectX + tableRect.left + tableWidth / 2 - 11 + "px";
-            fork.style.top = objectY + tableRect.top - 40 + "px";
+            fork.style.top = objectY + tableRect.top - 210 + "px";
 
             mainImg.appendChild(fork);
         }

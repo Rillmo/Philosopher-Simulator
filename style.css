@@ -39,3 +39,13 @@ body {
     background-color: #9a9b9a;
     border-radius: 50%;
 }
+
+#philoSimul {
+    width : 500px;
+    height : 100px;
+}
+
+#start {
+    width : 500px;
+    height : 20px;
+}
