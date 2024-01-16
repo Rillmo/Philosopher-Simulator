@@ -1,47 +1,40 @@
 var info;
 var philos;
+var forks;
+var finishedEat = 0;
 
 function simulationStart() {
-
     // get input from user
     var simulInput = document.getElementById("philoSimul").value;
-    
+
     // split string to array
     var lines = simulInput.split("\n");
     info = [];
     lines.forEach(line => {
-        var splitLine = parseLine(line);
-        if (splitLine == -1)
-            return;
-        info.push(splitLine);
+        if (line.length > 0){
+            var splitLine = parseLine(line);
+            if (splitLine == -1)
+                return;
+            info.push(splitLine);
+        }
     });
 
     // check error
-    var before = info[0];
-    info.forEach(line => {
-        if (isNaN(line[0])){
-            alert("syntax error at [" + line[0] + "]");
-            return 1;
-        }
-        else if (isNaN(line[1])){
-            alert("syntax error at [" + line[1] + "]");
-            return 1;
-        }
-        else if (parseInt(before[0], 10) > parseInt(line[0], 10)) {
-            alert("timestamp is not in ascending order");
-            return 1;
-        }
-        else if (parseInt(line[1]) > philoCount) {
-            alert("philo number is too big : " + line[1]);
-            return 1;
-        }
-    });
-    
+    if (check_err(info) == 1)
+        return;
+
     // logging....
     console.log(info);
 
     // bring all philos from document
     philos = document.querySelectorAll(".philo");
+
+    // bring all forks from document
+    forks = document.querySelectorAll(".fork");
+
+    forks.forEach(fork => {
+        console.log(fork.innerHTML);
+    });
 
     // start simulation process
     processLine(0);
@@ -62,14 +55,26 @@ function processLine(index) {
         count++;
     });
 
-    // activate current philo
-    currPhilo.style.backgroundColor = "#09fa05";
+    var currIdx = currPhilo.innerHTML;
+
+    // philo action
+    if (curline[2].localeCompare("has taken a fork") == 0) {    // pick a fork
+        takeFork(currIdx);
+    } else if (curline[2].localeCompare("is eating") == 0) {    // eat
+        eating(currPhilo);
+    } else if (curline[2].localeCompare("is sleeping") == 0) {  // sleep
+        sleeping(currPhilo);
+    } else if (curline[2].localeCompare("is thinking") == 0) {  // think
+        thinking(currPhilo);
+    } else {
+        alert("syntax errot at [" + curline[2] + "]");
+        return ;
+    }
 
     // sleep for a while using setTimeout
     setTimeout(function () {
-        // deactivate current philo after a delay (e.g., 3000 milliseconds)
-        currPhilo.style.backgroundColor = "white";
-        
+        // put down the fork
+        putDownFork(currIdx);
         // Process the next line after the delay
         processLine(index + 1);
     }, 2000);
@@ -80,7 +85,7 @@ function parseLine(line) {
     var result = [];
     var start = 0;
     var count = 0;
-
+    
     for (var end = 0; end<line.length; end++){
         if (count == 2)
             break;
@@ -95,10 +100,30 @@ function parseLine(line) {
         return -1;
     }
     result.push(line.substring(start, line.length));
+    if (result.length != 3)
+        alert("syntax errot at [" + line + "]");
     return result;
 }
 
-function sleep(ms) {
-    const wakeUpTime = Date.now() + ms;
-    while (Date.now() < wakeUpTime) {}
-  }
+function check_err(info){
+    var before = info[0];
+    info.forEach(line => {
+        if (isNaN(line[0])){
+            alert("syntax error at [" + line[0] + "]");
+            return 1;
+        }
+        else if (isNaN(line[1])){
+            alert("syntax error at [" + line[1] + "]");
+            return 1;
+        }
+        else if (parseInt(before[0], 10) > parseInt(line[0], 10)) {
+            alert("timestamp is not in ascending order");
+            return 1;
+        }
+        else if (parseInt(line[1]) > philoCount || parseInt(line[1]) <= 0) {
+            alert("philo number is out of range : " + line[1]);
+            return 1;
+        }
+    });
+    return 0;
+}

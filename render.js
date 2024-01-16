@@ -62,12 +62,22 @@ function generatePhiloElements() {
 
     // bring all philo tags
     var philos = document.querySelectorAll(".philo");
-    var idx = 0;
-
-    // set number of philos
+    var idx = 1;
+    // set number to philos
     philos.forEach(philo => {
-        if (idx < philoCount)
-            philo.innerHTML = idx + 1;
+        if (idx <= philoCount)
+            philo.innerHTML = idx;
         idx++;
     });
+
+    // bring all fork tags
+    var forks = document.querySelectorAll(".fork");
+    var idx = 1;   
+    // set number to forks
+    forks.forEach(fork => {
+        if (idx <= philoCount)
+            fork.innerHTML = idx;
+        idx++;
+    })
+
 }

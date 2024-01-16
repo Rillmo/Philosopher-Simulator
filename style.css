@@ -20,7 +20,7 @@ body {
     width: 200px;
     left : 10vw;
     top: 20vh;
-    background-color: #05cdfa;
+    background-color: #faac05;
     border-radius: 50%;
 }
 
@@ -38,8 +38,11 @@ body {
     position: absolute;
     height: 20px;
     width: 20px;
-    background-color: #9a9b9a;
+    color: black;
+    border: 1px solid black;
     border-radius: 50%;
+    text-align: center;
+    align-items: center;
 }
 
 #philoSimul {
