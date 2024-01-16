@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Welcome to Philo-Simulator!</h1>
+
+    <div class="mainImg">
+        <span class="table"></span>
+        <span class="philo"></span>
+        <span class="philo"></span>
+        <span class="philo"></span>
+        <span class="philo"></span>
+        <span class="philo"></span>
+        <span class="philo"></span>
+        <span class="philo"></span>
+        <span class="philo"></span>
+        <span class="philo"></span>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the table element
+            var table = document.querySelector(".table");
+
+            // Get the dimensions of the table
+            var tableRect = table.getBoundingClientRect();
+            var tableWidth = tableRect.width;
+
+            // Calculate the radius of the table
+            var tableRadius = tableWidth / 2;
+
+            // Get the number of philo elements
+            var philoCount = document.querySelectorAll(".philo").length;
+
+            // Calculate the angle between each philo element
+            var angle = (2 * Math.PI) / philoCount;
+
+            // Iterate through each philo element and position it around the table
+            var philos = document.querySelectorAll(".philo");
+            philos.forEach(function (philo, index) {
+                var phi = angle * index;
+                var philoRadius = tableRadius + 30; // Adjust this value for the desired distance from the table
+                var philoX = Math.cos(phi) * philoRadius + tableRect.left + tableWidth / 2;
+                var philoY = Math.sin(phi) * philoRadius + tableRect.top + tableWidth / 2;
+
+                philo.style.left = philoX - philo.offsetWidth / 2 + "px";
+                philo.style.top = philoY - philo.offsetHeight / 2 + "px";
+            });
+        });
+    </script>
+</body>
+
+</html>
