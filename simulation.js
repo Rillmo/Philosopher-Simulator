@@ -1,8 +1,33 @@
+class Queue {
+    constructor() {
+        this.items = {};
+        this.frontIndex = 0;
+        this.backIndex = 0;
+    }
+    enqueue(item) {
+        this.items[this.backIndex] = item;
+        this.backIndex++;
+        return item + ' inserted';
+    }
+    dequeue() {
+        const item = this.items[this.frontIndex];
+        delete this.items[this.frontIndex];
+        this.frontIndex++;
+        return item;
+    }
+    peek() {
+        return this.items[this.frontIndex];
+    }
+    get printQueue() {
+        return this.items;
+    }
+}
+
 var info;
 var philos;
 var forks;
 var finishedEat = 0;
-var EatingQueue;
+var eatingQueue = new Queue();
 
 function simulationStart() {
     // get input from user
@@ -33,7 +58,7 @@ function simulationStart() {
     // bring all forks from document
     forks = document.querySelectorAll(".fork");
 
-    forks.forEach(fork => {
+	forks.forEach(fork => {
         console.log(fork.innerHTML);
     });
 
@@ -63,11 +88,11 @@ function processLine(index) {
 
 	var currIdx = currPhilo.innerHTML;
 
-    // philo action
+    // philo action except eat
     if (curline[2].localeCompare("has taken a fork") == 0) {    // pick a fork
-        takeFork(currIdx);
-    } else if (curline[2].localeCompare("is eating") == 0) {    // eat
-        eating(currPhilo, currIdx);
+		eatingQueue.enqueue(currIdx);
+    } else if (curline[2].localeCompare("is eating") == 0) {
+		eating(currPhilo, currIdx);
     } else if (curline[2].localeCompare("is sleeping") == 0) {  // sleep
         sleeping(currPhilo, currIdx);
     } else if (curline[2].localeCompare("is thinking") == 0) {  // think
@@ -88,12 +113,12 @@ function processLine(index) {
 
 	// print current time
 	printTime(curTime);
+	console.log("curTime: " + curTime);
+	console.log("timetosleep : " + timeToSleep);
+	if (timeToSleep > 0)
+		doEat();
 
 	setTimeout(function () {
-		if (timeToSleep > 0){
-			putDownFork(currIdx);
-			finishedEat = 0;
-		}
 		processLine(index + 1);
 	}, timeToSleep);
 }

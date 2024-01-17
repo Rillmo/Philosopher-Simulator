@@ -9,26 +9,30 @@ function takeFork(idx) {
             left = fork;
         if (idx == 1 && forkIdx == philoCount)
                 right = fork;
-        if (forkIdx == idx - 1)
+        else if (forkIdx == idx - 1)
             right = fork;
     });
 
     if (left.style.backgroundColor == "" || left.style.backgroundColor == "white" || left.style.backgroundColor == "#09fa05"){
         left.style.backgroundColor = "#09fa05";
+		console.log("left: "+left.innerHTML);
         return 0;
     }
     if (right.style.backgroundColor == "" || right.style.backgroundColor == "white" || right.style.backgroundColor == "#09fa05"){
         right.style.backgroundColor = "#09fa05";
+		console.log("right: "+right.innerHTML);
         return 0;
-    }
+	}
 }
 
 function sleeping(currPhilo, idx){
+	putDownFork(idx);
     // coloring current philo
     currPhilo.style.backgroundColor = "#CCEBC5";
 }
 
 function thinking(currPhilo, idx){
+	putDownFork(idx);
     // coloring current philo
     currPhilo.style.backgroundColor = "#FBB4AE";
 }
@@ -59,7 +63,6 @@ function putDownFork(idx) {
     
     left.style.backgroundColor = "white";
     right.style.backgroundColor = "white";
-    finishedEat = 0;
 }
 
 function printTime(time) {
@@ -67,3 +70,17 @@ function printTime(time) {
 
 	timeInfo.innerHTML = time;
 }
+
+function doEat(){
+	// do eat
+	var dequeuedValue;
+
+	do {
+		dequeuedValue = eatingQueue.dequeue();
+		if (dequeuedValue != undefined) {
+			takeFork(dequeuedValue);
+			console.log(dequeuedValue + " take fork!");
+		}
+	} while (dequeuedValue)
+}
+
