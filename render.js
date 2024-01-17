@@ -1,4 +1,5 @@
 var philoCount;
+var timeIntervalInput = 30;
 
 function generatePhiloElements() {
     // Clear existing elements
@@ -79,5 +80,10 @@ function generatePhiloElements() {
             fork.innerHTML = idx;
         idx++;
     })
+}
 
+function updateTimeInterval() {
+	timeIntervalInput = document.getElementById("timeInterval").value;
+	var timeIntervalValue = document.getElementById("timeIntervalValue");
+	timeIntervalValue.innerText = timeIntervalInput + "ms";
 }

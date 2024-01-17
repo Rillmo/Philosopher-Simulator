@@ -13,27 +13,27 @@ function takeFork(idx) {
             right = fork;
     });
 
-    if (left.style.backgroundColor == "" || left.style.backgroundColor == "white"){
+    if (left.style.backgroundColor == "" || left.style.backgroundColor == "white" || left.style.backgroundColor == "#09fa05"){
         left.style.backgroundColor = "#09fa05";
         return 0;
     }
-    if (right.style.backgroundColor == "" || right.style.backgroundColor == "white"){
+    if (right.style.backgroundColor == "" || right.style.backgroundColor == "white" || right.style.backgroundColor == "#09fa05"){
         right.style.backgroundColor = "#09fa05";
         return 0;
     }
 }
 
-function sleeping(currPhilo){
+function sleeping(currPhilo, idx){
     // coloring current philo
     currPhilo.style.backgroundColor = "#CCEBC5";
 }
 
-function thinking(currPhilo){
+function thinking(currPhilo, idx){
     // coloring current philo
     currPhilo.style.backgroundColor = "#FBB4AE";
 }
 
-function eating(currPhilo){
+function eating(currPhilo, idx){
     // coloring current philo
     currPhilo.style.backgroundColor = "#B3CDE3";
     finishedEat = 1;
@@ -60,4 +60,10 @@ function putDownFork(idx) {
     left.style.backgroundColor = "white";
     right.style.backgroundColor = "white";
     finishedEat = 0;
+}
+
+function printTime(time) {
+	var timeInfo = document.getElementById("currentTime");
+
+	timeInfo.innerHTML = time;
 }

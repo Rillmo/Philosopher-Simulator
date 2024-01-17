@@ -2,6 +2,7 @@ var info;
 var philos;
 var forks;
 var finishedEat = 0;
+var EatingQueue;
 
 function simulationStart() {
     // get input from user
@@ -36,6 +37,8 @@ function simulationStart() {
         console.log(fork.innerHTML);
     });
 
+	console.log("time: " + timeIntervalInput);
+
     // start simulation process
     processLine(0);
 }
@@ -45,6 +48,9 @@ function processLine(index) {
         return;
 
     var curline = info[index];
+	var nextline;
+	if (index < info.length)
+    	nextline = info[index + 1];
     // bring in philosophers of corresponding numbers
     var philoNum = parseInt(curline[1]);
     var currPhilo;
@@ -55,29 +61,41 @@ function processLine(index) {
         count++;
     });
 
-    var currIdx = currPhilo.innerHTML;
+	var currIdx = currPhilo.innerHTML;
 
     // philo action
     if (curline[2].localeCompare("has taken a fork") == 0) {    // pick a fork
         takeFork(currIdx);
     } else if (curline[2].localeCompare("is eating") == 0) {    // eat
-        eating(currPhilo);
+        eating(currPhilo, currIdx);
     } else if (curline[2].localeCompare("is sleeping") == 0) {  // sleep
-        sleeping(currPhilo);
+        sleeping(currPhilo, currIdx);
     } else if (curline[2].localeCompare("is thinking") == 0) {  // think
-        thinking(currPhilo);
+        thinking(currPhilo, currIdx);
     } else {
         alert("syntax errot at [" + curline[2] + "]");
         return ;
     }
 
-    // sleep for a while using setTimeout
-    setTimeout(function () {
-        // put down the fork
-        putDownFork(currIdx);
-        // Process the next line after the delay
-        processLine(index + 1);
-    }, 2000);
+	// calculate timeToSleep
+	var timeToSleep = 0;
+	var curTime = parseInt(curline[0]);
+	var nextTime = 0;
+	if (nextline != undefined && nextline.length > 0)
+		nextTime = parseInt(nextline[0]);
+	if (nextline != undefined && nextline.length > 0)
+		timeToSleep = (nextTime - curTime) * timeIntervalInput;
+
+	// print current time
+	printTime(curTime);
+
+	setTimeout(function () {
+		if (timeToSleep > 0){
+			putDownFork(currIdx);
+			finishedEat = 0;
+		}
+		processLine(index + 1);
+	}, timeToSleep);
 }
 
 // parse line into form : [timestamp] [philo_number] [status]
