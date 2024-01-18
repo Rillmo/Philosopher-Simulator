@@ -13,14 +13,14 @@ function takeFork(idx) {
             right = fork;
     });
 
-    if (left.style.backgroundColor == "" || left.style.backgroundColor == "white" || left.style.backgroundColor == "#09fa05"){
+    if (left.style.backgroundColor == "" || left.style.backgroundColor == "white") {
         left.style.backgroundColor = "#09fa05";
-		console.log("left: "+left.innerHTML);
+		// console.log("left: "+left.innerHTML); 
         return 0;
     }
-    if (right.style.backgroundColor == "" || right.style.backgroundColor == "white" || right.style.backgroundColor == "#09fa05"){
+    if (right.style.backgroundColor == "" || right.style.backgroundColor == "white"){
         right.style.backgroundColor = "#09fa05";
-		console.log("right: "+right.innerHTML);
+		// console.log("right: "+right.innerHTML);
         return 0;
 	}
 }
@@ -73,14 +73,14 @@ function printTime(time) {
 
 function doEat(){
 	// do eat
-	var dequeuedValue;
+	var dequeuedValue = 1;
 
-	do {
+	for(var i=0; i<10; i++) {
 		dequeuedValue = eatingQueue.dequeue();
 		if (dequeuedValue != undefined) {
 			takeFork(dequeuedValue);
-			console.log(dequeuedValue + " take fork!");
+			// console.log(dequeuedValue + " take fork!");
 		}
-	} while (dequeuedValue)
+	}
 }
 
