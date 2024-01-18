@@ -43,7 +43,14 @@ function thinking(currPhilo, idx){
 function eating(currPhilo, idx){
     // coloring current philo
     currPhilo.style.backgroundColor = "#B3CDE3";
-    finishedEat = 1;
+	
+}
+
+function die(currPhilo, idx){
+    // coloring current philo
+    currPhilo.style.backgroundColor = "#9e9e9e";
+	clearTimeout(timeId);
+	simuationStatus.innerHTML = "DIED";
 }
 
 function putDownFork(idx) {

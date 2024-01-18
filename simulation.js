@@ -73,9 +73,12 @@ function processLine(index) {
         sleeping(currPhilo, currIdx);
     } else if (curline[2].localeCompare("is thinking") == 0) {  // think
         thinking(currPhilo, currIdx);
-    } else {
+    } else if (curline[2].localeCompare("is died") == 0) {
+		die(currPhilo, currIdx);
+	} else {
         alert("syntax errot at [" + curline[2] + "]");
-        return ;
+		exit_simulation();
+		return ;
     }
 
 	// calculate timeToSleep
@@ -155,4 +158,8 @@ function setResume() {
 	simuationStatus.innerHTML = "RUNNING";
 	processLine(order);
 	stop = 0;
+}
+
+function exit_simulation() {
+	clearTimeout(timeId);
 }
