@@ -3,7 +3,7 @@ class Node {
        this.data = data;
        this.next = null;
     }
- }
+}
 
  class LinkedList {
     constructor() {
@@ -39,26 +39,19 @@ class Node {
        }
        current.next = newNode;
     }
+
+	isEmpty() {
+		return this.length === 0;
+	}
     
-    // function to insert data to linked list at a particular index
-    addAtPosition(data, position) {
-       let newNode = new Node(data);
-       if (position === 1) {
-          newNode.next = this.head;
-          this.head = newNode;
-          return;
-       }
-       let current = this.head;
-       let i = 1;
-       while (i < position - 1 && current) {
-          current = current.next;
-          i++;
-       }
-       if (current) {
-          newNode.next = current.next;
-          current.next = newNode;
-       }
-    }
+    deleteHead() {
+		let delNode;
+		if (this.head === null)
+			return null;
+		delNode = this.head;
+		this.head = this.head.next;
+		return delNode;
+	}
     
     printAll() {
        let current = this.head;
@@ -67,28 +60,24 @@ class Node {
           current = current.next;
        }
     }
- }
+}
 
 class Queue {
     constructor() {
         this.items = new LinkedList();
     }
     enqueue(item) {
-        this.items.add(itme);
-        console.log("enqueue: " + item);
+        this.items.addToTail(item);
         return item + ' inserted';
     }
     dequeue() {
-        const item = this.items[this.frontIndex];
-        delete this.items[this.frontIndex];
-        this.frontIndex++;
-        // console.log("dequeue: " + item);
+        var item = this.items.deleteHead();
         return item;
     }
     peek() {
-        return this.items[this.frontIndex];
+        return this.items.head;
     }
     get printQueue() {
-        return this.items;
+        return this.items.printAll;
     }
 }

@@ -3,13 +3,16 @@ function takeFork(idx) {
     var left;
     var right;
 
-    forks.forEach(fork => {
+	// find left fork
+    leftForks.forEach(fork => {
         forkIdx = parseInt(fork.innerHTML);
         if (forkIdx == idx)
             left = fork;
-        if (idx == 1 && forkIdx == philoCount)
-                right = fork;
-        else if (forkIdx == idx - 1)
+    });
+	// find right fork
+    rightForks.forEach(fork => {
+        forkIdx = parseInt(fork.innerHTML);
+        if (forkIdx == idx)
             right = fork;
     });
 
@@ -48,16 +51,16 @@ function putDownFork(idx) {
     var left;
     var right;
 
-    if (finishedEat == 0)
-        return 0;
-
-    forks.forEach(fork => {
+	// find left fork
+    leftForks.forEach(fork => {
         forkIdx = parseInt(fork.innerHTML);
         if (forkIdx == idx)
             left = fork;
-        if (idx == 1 && forkIdx == philoCount)
-                right = fork;
-        if (forkIdx == idx - 1)
+    });
+	// find right fork
+    rightForks.forEach(fork => {
+        forkIdx = parseInt(fork.innerHTML);
+        if (forkIdx == idx)
             right = fork;
     });
     
@@ -77,9 +80,8 @@ function doEat(){
 
 	for(var i=0; i<10; i++) {
 		dequeuedValue = eatingQueue.dequeue();
-		if (dequeuedValue != undefined) {
-			takeFork(dequeuedValue);
-			// console.log(dequeuedValue + " take fork!");
+		if (dequeuedValue != undefined && dequeuedValue != null) {
+			takeFork(dequeuedValue.data);
 		}
 	}
 }

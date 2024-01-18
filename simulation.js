@@ -1,10 +1,14 @@
 var info;
 var philos;
-var forks;
-var finishedEat = 0;
-var eatingQueue = new Queue();
+var timeId = 0;
+var order = 0;
 
 function simulationStart() {
+	order = 0;
+	timeId = 0;
+
+	simuationStatus.innerHTML = "RUNNING";
+
     // get input from user
     var simulInput = document.getElementById("philoSimul").value;
 
@@ -24,9 +28,6 @@ function simulationStart() {
     if (check_err(info) == 1)
         return;
 
-    // logging....
-    console.log(info);
-
     // bring all philos from document
     philos = document.querySelectorAll(".philo");
 
@@ -37,15 +38,15 @@ function simulationStart() {
         console.log(fork.innerHTML);
     });
 
-	console.log("time: " + timeIntervalInput);
-
     // start simulation process
-    processLine(0);
+    processLine(order);
 }
 
 function processLine(index) {
     if (index >= info.length)
         return;
+
+	order = index;
 
     var curline = info[index];
 	var nextline;
@@ -65,7 +66,7 @@ function processLine(index) {
 
     // philo action except eat
     if (curline[2].localeCompare("has taken a fork") == 0) {    // pick a fork
-		eatingQueue.enqueue(currIdx);
+		takeFork(currIdx);
     } else if (curline[2].localeCompare("is eating") == 0) {
 		eating(currPhilo, currIdx);
     } else if (curline[2].localeCompare("is sleeping") == 0) {  // sleep
@@ -85,17 +86,11 @@ function processLine(index) {
 		nextTime = parseInt(nextline[0]);
 	if (nextline != undefined && nextline.length > 0)
 		timeToSleep = (nextTime - curTime) * timeIntervalInput;
-
+	
 	// print current time
-	// printTime(curTime);
-	// console.log("curTime: " + curTime);
-	// console.log("timetosleep : " + timeToSleep);
-    console.log(eatingQueue.printQueue);
-
-	if (timeToSleep > 0)
-		doEat();
-
-	setTimeout(function () {
+	printTime(curTime);
+	
+	timeId = setTimeout(function () {
 		processLine(index + 1);
 	}, timeToSleep);
 }
@@ -146,4 +141,18 @@ function check_err(info){
         }
     });
     return 0;
+}
+
+function setStop() {
+	console.log("stop clicked!");
+	clearTimeout(timeId);
+	simuationStatus.innerHTML = "PAUSED";
+	stop = 1;
+}
+
+function setResume() {
+	console.log("resume clicked!");
+	simuationStatus.innerHTML = "RUNNING";
+	processLine(order);
+	stop = 0;
 }

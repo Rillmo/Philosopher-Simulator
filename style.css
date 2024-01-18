@@ -16,25 +16,26 @@ body {
 
 .table {
     position: absolute;
-    height: 200px;
-    width: 200px;
+    height: 400px;
+    width: 400px;
     left : 10vw;
     top: 20vh;
-    background-color: #faac05;
+    background-color: #2db55b;
     border-radius: 50%;
 }
 
 .philo {
     position: absolute;
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
     color: rgb(1, 1, 1);
     border: 1px solid black;
     text-align: center;
     align-items: center;
 }
 
-.fork {
+.leftFork,
+.rightFork{
     position: absolute;
     height: 20px;
     width: 20px;
@@ -92,32 +93,45 @@ body {
 }
 
 .timeInfo {
-	width: 500px;
+	width: 800px;
 	height : 50px;
 	display:flex;
 	text-align:center;
+	align-items: center;
+	flex-direction: row;
+}
+
+.timeSet {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
 }
 
 #time {
-	text-align: center;
-	margin-right: 20px;
-	margin-left: 70px;
+    text-align: center;
+    margin-right: 10px;
+	font-size: 20px;
+}
+
+#simuationStatus {
+    text-align: center;
+	padding: 10px;
+	font-size: 25px;
 }
 
 #currentTime {
-    position: relative;
-    width: 100px;
+    width: 100px; /* 원하는 너비 설정 */
     height: 50px;
-    border: 1px solid black;
+    border: 2px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
-	font-size: 20px;
-	margin-right: 30px;
+    font-size: 20px;
+    margin-right: 10px; /* 수정된 부분 */
 }
 
 #timeInterval {
-	margin: 10px;
+    margin: 10px;
 }
 
 #timeIntervalValue {
@@ -126,3 +140,35 @@ body {
     justify-content: center;
     height: 100%;
 }
+
+#pause {
+	margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+	border: none;
+    justify-content: center;
+    align-items: center;
+    background: url(pause.png) no-repeat; 
+    background-size: contain; 
+    cursor: pointer;
+}
+
+#resume {
+	margin-left: 20px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+	border: none;
+    justify-content: center;
+    align-items: center;
+    background: url(play-buttton.png) no-repeat; 
+    background-size: contain; 
+    cursor: pointer; 
+}
+
+#resume:active,
+#pause:active {
+    transform: translateY(2px);
+}
+

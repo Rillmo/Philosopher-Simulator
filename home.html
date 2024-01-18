@@ -11,7 +11,7 @@
 <body>
     <h1>Welcome to Philo-Simulator!</h1>
 
-    <p>***maximum 16 philosophers recommended***</p>
+    <p>***maximum 10 philosophers recommended***</p>
 
     <div class="input">
         <label for="philoCount">Enter the number of Philo elements:</label>
@@ -42,10 +42,15 @@
 			</p>
 			<br>
 			<div class="timeInfo">
-				<p id="time">TIME</p>
-                <span id="currentTime">0</span>
+				<div class="timeSet">
+					<p id="time">TIME</p>
+					<span id="currentTime">0</span>
+					<p id="simuationStatus">READY</p>
+				</div>
 				<input id="timeInterval" type="range" min="1" max="300" value="30" oninput="updateTimeInterval()">
 				<output id="timeIntervalValue">30ms</output>
+				<button id="resume" onclick="setResume()"></button>
+				<button id="pause" onclick="setStop()"></button>
             </div>
 		</div>
 	</div>
