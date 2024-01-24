@@ -23,3 +23,6 @@ So if more than one philosopher picks up a fork as a result of simulator, it mig
 4. You'll see your philosophers eating, thinking, holding a fork, sleeping at a certain point.
 5. There are pause buttons and play buttons for ease of use.
 
+<br>
+
+> Thank's to tajeong, minjacho
